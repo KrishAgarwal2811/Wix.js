@@ -1,1 +1,2 @@
 # Wix.js
+> **Website section**
