@@ -5,23 +5,25 @@ addEventListener("DOMContentLoaded",() => {
 	}
 });
 
+
+
 const W = Object.freeze({
 	Library: Object.freeze({
 		author: "Wixonic",
-		contributors: {
+		contributors: Object.freeze({
 			"Wixonic": "https://github.com/Wixonic/",
 			"Tapabrata Banerjee": "https://github.com/Tapabrata2005/"
-		},
+		}),
 		fileExtension: ".js",
 		fileName: "Wix.js",
 		name: "Wix",
 		repository: "https://github.com/Wixonic/Wix.js/",
 		website: "https://wixonic.github.io/Wix.js/",
-		version: "0.0.1-Alpha-1"
-	}),
-	
-	createNode: (Type) => new WElement(document.createElement(Type))
+		version: "0.0.1-Alpha-2"
+	})
 });
+
+
 
 const WElement = class {
 	#Node;
@@ -185,3 +187,36 @@ const WElement = class {
 };
 
 const WE = WElement;
+
+
+
+const XHR = (url,opts) =>
+{
+	return new Promise((resolve) =>
+	{
+		const xhr = new XMLHttpRequest();
+		
+		xhr.open(opts.method || "GET",url || "",opts.async);
+		
+		if (opts.headers)
+		{
+			for (let x in opts.headers)
+			{
+				xhr.setRequestHeader(x,opts.headers[x]);
+			}
+		}
+		
+		if (opts.async)
+		{
+			xhr.timeout = opts.timeout || 5000;
+			xhr.responseType = opts.type || "";
+		}
+		
+		xhr.onload = () =>
+		{
+			resolve(xhr);
+		};
+		
+		xhr.send(opts.body);
+	});
+};
